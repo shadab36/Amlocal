@@ -88,16 +88,28 @@ public class SetupClass {
 		}
 		// on saucelabs test
 
-		else if ((oncloud.equals("yes")) && local_IE11.equals("no")) {
+		else if ((oncloud.equals("yes"))) {
 			AppURL = property.getProperty("base_url");
-			System.out.println("Bname=====" + AppURL);
+			System.out.println("run the script on sauce labs");
+			//on browser
+			System.out.println("test");
+			browserName = System.getenv("SELENIUM_BROWSER");
+			platform = System.getenv("SELENIUM_PLATFORM");
+			platformVersion = System.getenv("SELENIUM_VERSION");
+			Seleniumdriver=System.getenv("SELENIUM_DRIVER");
+			System.out.println("platform :"+ platform);
+			System.out.println("BrowerName: "+  browserName);
+			System.out.println("platform vesion: "+  platformVersion);
+			System.out.println("seleniumDriver: "+ Seleniumdriver);
 			DesiredCapabilities capability = new DesiredCapabilities();
 			capability.setCapability("platform", platform);
 			capability.setBrowserName(browserName);
 			capability.setCapability("version", platformVersion);
-			capability.setCapability("name", "Automation tests");
-			driver = new RemoteWebDriver(new URL(sauceURL), capability);
+			capability.setCapability("name",  "Automation tests");
 			
+			
+			
+			driver = new RemoteWebDriver(new URL(sauceURL), capability);
 
 		}
 		else {
