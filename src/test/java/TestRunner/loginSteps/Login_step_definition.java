@@ -2,6 +2,7 @@ package TestRunner.loginSteps;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -56,6 +57,15 @@ public class Login_step_definition extends SetupClass {
 		webelement.click();
 		wait.implictywait(driver);
 		Thread.sleep(1000);
+		Thread.sleep(1000);
+		try {
+			WebElement recommended=driver.findElement(By.cssSelector(".scd-assistant-cards-close>i"));
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			recommended.click();
+	Thread.sleep(1000);
+	} catch (NoSuchElementException recommended) {
+
+	}
 	}
 
 	@Then("^select a product item\\.$")
