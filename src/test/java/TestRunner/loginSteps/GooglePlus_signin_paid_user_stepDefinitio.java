@@ -1,12 +1,15 @@
 package TestRunner.loginSteps;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import ObjectRepository.FbandGP_Object;
 import ObjectRepository.SignupObject;
@@ -26,7 +29,7 @@ public class GooglePlus_signin_paid_user_stepDefinitio extends SetupClass {
 	public void navigates_to_website_url() throws InterruptedException {
 		// Maximize Windows
 		driver.get("https://www.slideteam.net");
-		Thread.sleep(10000);
+		Thread.sleep(5000);
 		try {
 			webelement = driver.findElement(SignupObject.close_add);
 			webelement.click();
@@ -50,13 +53,15 @@ public class GooglePlus_signin_paid_user_stepDefinitio extends SetupClass {
 
 	@And("^Select style as complete ppt\\.$")
 	public void click_most_download() throws InterruptedException {
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.Most));
 		webelement = driver.findElement(SignupObject.Most);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		webelement.click();
-		wait.implictywait(driver);
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		try {
 			WebElement recommended=driver.findElement(By.cssSelector(".scd-assistant-cards-close>i"));
-			wait.implictywait(driver);
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			recommended.click();
 	Thread.sleep(1000);
 	} catch (NoSuchElementException recommended) {
@@ -66,10 +71,14 @@ public class GooglePlus_signin_paid_user_stepDefinitio extends SetupClass {
 
 	@And("^Select any project slider\\.$")
 	public void select_product() throws InterruptedException {
-		webelement = driver.findElement(SignupObject.Select_item);
-		webelement.click();
-		wait.implictywait(driver);
-		Thread.sleep(2000);
+		
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.Select_item));
+		WebElement et = driver.findElement(SignupObject.Select_item);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		et.click();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		Thread.sleep(1000);
 	}
 
 	@And("^Click on downloadbtn test5 link\\.$")
@@ -98,7 +107,7 @@ public class GooglePlus_signin_paid_user_stepDefinitio extends SetupClass {
 		wait.implictywait(driver);
 		webelement.sendKeys("selenium_testing@slidetech.in");
 		wait.implictywait(driver);
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		
 			
 		
@@ -124,7 +133,7 @@ public class GooglePlus_signin_paid_user_stepDefinitio extends SetupClass {
 				wait.implictywait(driver);
 				webelement.sendKeys("slideteam");
 				wait.implictywait(driver);
-				Thread.sleep(1000);
+				Thread.sleep(2000);
 			
 
 			

@@ -54,6 +54,7 @@ public class Facebook_create_sigin_unpaid_stepDefin extends SetupClass {
 		driver.navigate().refresh();
 		Thread.sleep(2000);
 		webelement = driver.findElement(SignupObject.Most);
+		wait.implictywait(driver);
 		webelement.click();
 		wait.implictywait(driver);
 		Thread.sleep(1000);
@@ -63,6 +64,7 @@ public class Facebook_create_sigin_unpaid_stepDefin extends SetupClass {
 	public void on_the_Scoping_Powerpoint_product() throws InterruptedException {
 	
 		webelement = driver.findElement(SignupObject.Select_item);
+		wait.implictywait(driver);
 		webelement.click();
 		wait.implictywait(driver);
 		Thread.sleep(2000);

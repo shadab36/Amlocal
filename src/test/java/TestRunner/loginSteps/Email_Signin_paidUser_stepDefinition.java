@@ -67,8 +67,11 @@ public class Email_Signin_paidUser_stepDefinition extends SetupClass {
 
 		@Then("^Select a product as Project Scoping Powerpoint$")
 		public void select_product() throws InterruptedException {
+			
 			webelement = driver.findElement(SignupObject.Select_item);
-			webelement.click();
+			js.executeScript("arguments[0].click();", webelement);
+			Thread.sleep(3000);
+		
 			wait.implictywait(driver);
 			Thread.sleep(2000);
 		}

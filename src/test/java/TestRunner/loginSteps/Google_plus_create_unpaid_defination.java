@@ -8,7 +8,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
-
 import ObjectRepository.FbandGP_Object;
 import ObjectRepository.SignupObject;
 import TestRunner.SetupClass;
@@ -16,7 +15,6 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import webApp.PerformAction;
-
 public class Google_plus_create_unpaid_defination extends SetupClass {
 	PerformAction wait = new PerformAction();
 	JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -98,9 +96,13 @@ public class Google_plus_create_unpaid_defination extends SetupClass {
 			WebElement useaccount=driver.findElement(By.xpath("//*[text()='Use another account']"));
 			wait.implictywait(driver);
 			useaccount.click();
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 		}catch(NoSuchElementException usenewaccount) {	
 	}
+		
+	
+	
+	try {
 		webelement = driver.findElement(FbandGP_Object.GPEmail);
 		webelement.click();
 		wait.implictywait(driver);
@@ -109,8 +111,9 @@ public class Google_plus_create_unpaid_defination extends SetupClass {
 		webelement.sendKeys("selenium.testing9977@gmail.com");
 		wait.implictywait(driver);
 		Thread.sleep(1000);
+	}catch(NoSuchElementException usenewa) {	
 	}
-
+	}
 	@Then("^Go to next page\\.$")
 	public void password_page() throws InterruptedException {
 

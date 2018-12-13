@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 
 public class SignupObject {
 		public static By close_add=By.cssSelector(".fancybox-item.fancybox-close");
-		public static By Most = By.cssSelector("#new-menu>li:nth-child(3)");
+		public static By Most = By.cssSelector("#new-menu>li:nth-child(3)>a>p");
 		public static By Select_item = By.cssSelector(".product-info>h2>a[title='Project Scoping Powerpoint Presentation Slides']");
 		public static By Downloaded = By.cssSelector(".download-wishlist-button>div>button");
 		public static By create = By.cssSelector(".buttons-set>button[title='Create an Account']");
@@ -30,7 +30,6 @@ public class SignupObject {
 		//price element
 		
 		public static By random_Price = By.cssSelector(".btn.btn-primary.join-now");
-		
 		public static By Monthly_Price = By.cssSelector(".btn.btn-primary.join-now.monthly-join-now");
 		public static By Semi_Price = By.cssSelector(".btn.btn-primary.join-now.semi-annual-join-now");
 		public static By Annual_Price = By.cssSelector(".btn.btn-primary.join-now.annual-join-now");

@@ -13,11 +13,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import webApp.CommonData;
 
+import webApp.CommonData;
 public class SetupClass {
 	public static WebDriver driver;
 	public static String AppURL;
@@ -46,6 +45,7 @@ public class SetupClass {
 	@BeforeClass
 	public static void before_Class() throws Exception {
 		log = Logger.getLogger(BeforeClass.class.getName());
+	
 		property.load(new FileReader("C:\\Users\\AL Moin Webtech\\AutoSlideTeam\\Amlocal\\src\\main\\resources\\configure.properties"));
 		AppURL = property.getProperty("App_url");
 		sauceURL = property.getProperty("sauce_url");
@@ -68,42 +68,27 @@ public class SetupClass {
 
 		// if (browser.equalsIgnoreCase("chrome"))
 
-		if ((local_chrome.equals("yes"))) {
+		if ((local_chrome.equals("yes")) && oncloud.equals("no")) {
 			local_chromebrowser = System.setProperty(CommonData.Chrome_Name, CommonData.Chrome_Path);
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("--disable-notifications");
 			driver = new ChromeDriver(options);
 			driver.manage().window().maximize();
+			Thread.sleep(500);
 			// if (browser.equalsIgnoreCase("firefox"))
-		} else if ((localtestFF.equals("yes"))) {
+		} else if ((localtestFF.equals("yes")) && oncloud.equals("no")) {
 
+			localFF = System.setProperty(CommonData.Firefox_Name, CommonData.Firefox_Path);
 			FirefoxProfile profile = new FirefoxProfile();
-		profile.setPreference("dom.webnotifications.enabled", false);
-	   driver = new FirefoxDriver();
-	   Thread.sleep(1000);
+			profile.setPreference("dom.webnotifications.enabled", false);
+		   driver = new FirefoxDriver();
+		   Thread.sleep(1000);
 			
 
 		}
-		// if (browser.equalsIgnoreCase("IE11"))
+		// on saucelabs
 
-		else if ((local_IE11.equals("yes"))) {
-			/*** To run desktop project on local */
-			local_IE11browser = System.setProperty(CommonData.IE_Name, CommonData.IE_Path);
-			driver = new InternetExplorerDriver();
-	
-
-			// if (browser.equalsIgnoreCase("mobile"))
-		} else if ((onmobile.equals("yes")) && oncloud.equals("no")) {
-			DesiredCapabilities cab = new DesiredCapabilities();
-			cab.setCapability("deviceName", "ZW2223XXGX");
-			cab.setCapability("platformName", "Android");
-			cab.setCapability("platformVersion", "7.1.1");
-			cab.setBrowserName("chrome");
-
-//			driver = new AndroidDriver(new URL("http://0.0.0.0:4723/wd/hub"), cab);
-//			Thread.sleep(2000);
-
-		} else if ((oncloud.equals("yes"))) {
+		else if ((oncloud.equals("yes")) && local_IE11.equals("no")) {
 			AppURL = property.getProperty("base_url");
 			System.out.println("Bname=====" + AppURL);
 			DesiredCapabilities capability = new DesiredCapabilities();
@@ -112,27 +97,23 @@ public class SetupClass {
 			capability.setCapability("version", platformVersion);
 			capability.setCapability("name", "Automation tests");
 			driver = new RemoteWebDriver(new URL(sauceURL), capability);
-
-		}
-
-		else {
 			
-			System.out.println("test");
-			browserName = System.getenv("SELENIUM_BROWSER");
-			platform = System.getenv("SELENIUM_PLATFORM");
-			platformVersion = System.getenv("SELENIUM_VERSION");
-			System.out.println("after run");
 
 		}
-
+		else {
+			System.out.println("test");
+		}
+	
 	}
+
 	
 
 	@AfterClass
-
 	public static void after_Class() throws InterruptedException {
-
 		driver.quit();
 		Thread.sleep(2000);
 	}
+
+
 }
+

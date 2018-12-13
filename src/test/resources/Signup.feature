@@ -1,7 +1,7 @@
 @signupTest 
 Feature: signup Test On Web Application 
 @signupTest_1 
-Scenario: 
+Scenario: open the application goes to the signup page
 	Given Navigates to website url. 
 	Then Click on Most Downloaded link. 
 	Then Select a product items. 
