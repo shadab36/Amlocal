@@ -26,7 +26,7 @@ public class Login_step_definition extends SetupClass {
 	public void navigates_to_website_url() throws InterruptedException {
 		// Maximize Windows
 		driver.get("https://www.slideteam.net");
-		Thread.sleep(2000);
+		Thread.sleep(6000);
 		try {
 			webelement = driver.findElement(SignupObject.close_add);
 			webelement.click();
