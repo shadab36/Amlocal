@@ -86,7 +86,7 @@ public class SetupClass {
 			
 
 		}
-		// on saucelabs
+		// on saucelabs test
 
 		else if ((oncloud.equals("yes")) && local_IE11.equals("no")) {
 			AppURL = property.getProperty("base_url");
