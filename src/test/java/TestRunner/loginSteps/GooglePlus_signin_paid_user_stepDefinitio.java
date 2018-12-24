@@ -29,7 +29,7 @@ public class GooglePlus_signin_paid_user_stepDefinitio extends SetupClass {
 	public void navigates_to_website_url() throws InterruptedException {
 		// Maximize Windows
 		driver.get("https://www.slideteam.net");
-		Thread.sleep(5000);
+Thread.sleep(2000);
 		try {
 			webelement = driver.findElement(SignupObject.close_add);
 			webelement.click();
@@ -39,7 +39,7 @@ public class GooglePlus_signin_paid_user_stepDefinitio extends SetupClass {
 		}
 
 		try {
-			WebElement logout = driver.findElement(By.cssSelector(".signin-link[title='Sign Out']"));
+			WebElement logout = driver.findElement(By.cssSelector("#header>div .header-minicart>a[title='Sign Out']"));
 			if (logout.isEnabled()) {
 				logout.click();
 				Thread.sleep(8000);
@@ -53,18 +53,19 @@ public class GooglePlus_signin_paid_user_stepDefinitio extends SetupClass {
 
 	@And("^Select style as complete ppt\\.$")
 	public void click_most_download() throws InterruptedException {
+		driver.navigate().refresh();
+		Thread.sleep(2000);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.Most));
 		webelement = driver.findElement(SignupObject.Most);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		webelement.click();
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		try {
 			WebElement recommended=driver.findElement(By.cssSelector(".scd-assistant-cards-close>i"));
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			recommended.click();
 	Thread.sleep(1000);
-	} catch (NoSuchElementException recommended) {
+	} catch (NoSuchElementException recommendedt) {
 
 	}
 	}
@@ -83,10 +84,12 @@ public class GooglePlus_signin_paid_user_stepDefinitio extends SetupClass {
 
 	@And("^Click on downloadbtn test5 link\\.$")
 	public void click_on_Download_this_presentation_link() throws InterruptedException {
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.Downloaded));
 		webelement = driver.findElement(SignupObject.Downloaded);
-		wait.implictywait(driver);
-		webelement.click();
-		Thread.sleep(1000);
+		js.executeScript("arguments[0].click();", webelement);
+		Thread.sleep(2000);
+	
 	}
 
 	@And("^Click on googlePlus link\\.$")
@@ -164,13 +167,22 @@ public class GooglePlus_signin_paid_user_stepDefinitio extends SetupClass {
 
 		try {
 			String Email_test = driver.findElement(SignupObject.Downloaded).getText();
+			Thread.sleep(1000);
 			wait.implictywait(driver);
 			String Expected_Cta = "Download this presentation";
+			wait.implictywait(driver);
 			Assert.assertEquals(Expected_Cta, Email_test);
 			wait.implictywait(driver);
 			Thread.sleep(1000);
 		} catch (NoSuchElementException er1) {
-
+			String Email_test1 = driver.findElement(SignupObject.Downloaded).getText();
+			Thread.sleep(1000);
+			wait.implictywait(driver);
+			String Expected_Cta = "Download this presentation ";
+			wait.implictywait(driver);
+			Assert.assertEquals(Expected_Cta, Email_test1);
+			wait.implictywait(driver);
+			Thread.sleep(1000);
 		}
 	}
 

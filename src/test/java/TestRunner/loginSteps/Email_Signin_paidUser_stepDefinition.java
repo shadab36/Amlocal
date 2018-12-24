@@ -1,13 +1,14 @@
 package TestRunner.loginSteps;
 
 import java.util.Random;
-
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import ObjectRepository.LoginObject;
 import ObjectRepository.SignupObject;
@@ -26,7 +27,7 @@ public class Email_Signin_paidUser_stepDefinition extends SetupClass {
 		public void navigates_to_website_url() throws InterruptedException {
 			// Maximize Windows
 			driver.get("https://www.slideteam.net");
-			Thread.sleep(5000);
+		Thread.sleep(2000);
 			try {
 				webelement = driver.findElement(SignupObject.close_add);
 				webelement.click();
@@ -36,7 +37,8 @@ public class Email_Signin_paidUser_stepDefinition extends SetupClass {
 			}
 
 			try {
-				WebElement logout = driver.findElement(By.cssSelector(".signin-link[title='Sign Out']"));
+				WebElement logout = driver.findElement(By.cssSelector("#header>div .header-minicart>a[title='Sign Out']"));
+				wait.implictywait(driver);
 				if (logout.isEnabled()) {
 					logout.click();
 					Thread.sleep(8000);
@@ -50,13 +52,15 @@ public class Email_Signin_paidUser_stepDefinition extends SetupClass {
 
 		@Then("^Click on Complete ppts$")
 		public void click_most_download() throws InterruptedException {
+			driver.navigate().refresh();
+			Thread.sleep(2000);
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.Most));
 			webelement = driver.findElement(SignupObject.Most);
 			webelement.click();
-			wait.implictywait(driver);
-			Thread.sleep(2000);
 			try {
 				WebElement recommended=driver.findElement(By.cssSelector(".scd-assistant-cards-close>i"));
-				wait.implictywait(driver);
+				Thread.sleep(500);
 				recommended.click();
 		Thread.sleep(2000);
 		} catch (NoSuchElementException recomm) {
@@ -67,19 +71,20 @@ public class Email_Signin_paidUser_stepDefinition extends SetupClass {
 
 		@Then("^Select a product as Project Scoping Powerpoint$")
 		public void select_product() throws InterruptedException {
-			
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.Select_item));
 			webelement = driver.findElement(SignupObject.Select_item);
 			js.executeScript("arguments[0].click();", webelement);
 			Thread.sleep(3000);
-		
-			wait.implictywait(driver);
-			Thread.sleep(2000);
+
 		}
 
 		@Then("^Click on download this presentation link$")
 		public void click_on_Download_this_presentation_link() throws InterruptedException {
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.Downloaded));
 			webelement = driver.findElement(SignupObject.Downloaded);
-			wait.implictywait(driver);
+			Thread.sleep(1000);
 			webelement.click();
 			Thread.sleep(8000);
 		}

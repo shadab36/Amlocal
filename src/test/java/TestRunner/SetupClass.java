@@ -1,20 +1,19 @@
 package TestRunner;
 
 import java.io.FileReader;
-import java.net.URL;
 import java.util.Properties;
 import java.util.logging.Logger;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
 import webApp.CommonData;
 public class SetupClass {
@@ -23,22 +22,15 @@ public class SetupClass {
 	public static Properties property = new Properties(System.getProperties());
 	public static String sauceURL;
 	public static String browserName;
-	public static String platformVersion;
-	public static String platform;
-	public static String browserVersion;
-	public static String platformName;
-	public static String deviceName;
-	public static String deviceOrientation;
 	public static Logger log;
 	public static String Seleniumdriver;
 	public static WebElement webelement;
 	public static String localtestFF;
 	public static String localFF;
-	public static String onmobile;
-	public static String chrom_mobile;
 	public static String local_IE11browser;
 	public static String local_IE11;
-	public static String oncloud;
+	public static String Local_Edge;
+	public static String Local_Edge_browser;
 	public static String local_chromebrowser;
 	public static String local_chrome;
 
@@ -48,13 +40,8 @@ public class SetupClass {
 	
 		property.load(new FileReader("C:\\Users\\AL Moin Webtech\\AutoSlideTeam\\Amlocal\\src\\main\\resources\\configure.properties"));
 		AppURL = property.getProperty("App_url");
-		sauceURL = property.getProperty("sauce_url");
-		deviceName = property.getProperty("device_name");
-		platformVersion = property.getProperty("platform_version");
-		platformName = property.getProperty("platform_name");
-		platform = property.getProperty("platform");
-		oncloud = property.getProperty("oncloud");
-		onmobile = property.getProperty("onmobile");
+		Local_Edge = property.getProperty("Local_Edge");
+		Local_Edge_browser=property.getProperty("Local_Edge_browser");
 		local_chromebrowser = property.getProperty("local_chrome_browser");
 		local_chrome = property.getProperty("local_chrome");
 		localtestFF = property.getProperty("localtestFF");
@@ -68,7 +55,7 @@ public class SetupClass {
 
 		// if (browser.equalsIgnoreCase("chrome"))
 
-		if ((local_chrome.equals("yes")) && oncloud.equals("no")) {
+		if ((local_chrome.equals("yes"))) {
 			local_chromebrowser = System.setProperty(CommonData.Chrome_Name, CommonData.Chrome_Path);
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("--disable-notifications");
@@ -76,44 +63,52 @@ public class SetupClass {
 			driver.manage().window().maximize();
 			Thread.sleep(500);
 			// if (browser.equalsIgnoreCase("firefox"))
-		} else if ((localtestFF.equals("yes")) && oncloud.equals("no")) {
+		} else if ((localtestFF.equals("yes"))) {
 
 			localFF = System.setProperty(CommonData.Firefox_Name, CommonData.Firefox_Path);
 			FirefoxProfile profile = new FirefoxProfile();
 			profile.setPreference("dom.webnotifications.enabled", false);
 		   driver = new FirefoxDriver();
 		   Thread.sleep(1000);
-			
+//		FirefoxProfile fp = new FirefoxProfile();
+//		   fp.setPreference("webdriver.load.strategy", "unstable");
+//		   WebDriver driver = new FirefoxDriver(fp);	
 
 		}
-		// on saucelabs test
+		// on saucelabs
 
-		else if ((oncloud.equals("yes"))) {
+		else if ((local_IE11.equals("yes"))) {
 			AppURL = property.getProperty("base_url");
-			System.out.println("run the script on sauce labs");
-			//on browser
-			System.out.println("test");
-			browserName = System.getenv("SELENIUM_BROWSER");
-			platform = System.getenv("SELENIUM_PLATFORM");
-			platformVersion = System.getenv("SELENIUM_VERSION");
-			Seleniumdriver=System.getenv("SELENIUM_DRIVER");
-			System.out.println("platform :"+ platform);
-			System.out.println("BrowerName: "+  browserName);
-			System.out.println("platform vesion: "+  platformVersion);
-			System.out.println("seleniumDriver: "+ Seleniumdriver);
-			DesiredCapabilities capability = new DesiredCapabilities();
-			capability.setCapability("platform", platform);
-			capability.setBrowserName(browserName);
-			capability.setCapability("version", platformVersion);
-			capability.setCapability("name",  "Automation tests");
 			
 			
+			local_IE11browser = System.setProperty(CommonData.IE_Name, CommonData.IE_Path);
+//			InternetExplorerOptions ieOptions = new InternetExplorerOptions();
+//			ieOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
+//			driver = new InternetExplorerDriver(ieOptions);
 			
-			driver = new RemoteWebDriver(new URL(sauceURL), capability);
+			DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+			//Tried without and without this capability, still same result.
+			capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+			capabilities.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
+			driver = new InternetExplorerDriver();
+			
+	
+		}
+		else if ((Local_Edge.equals("yes"))) {
+			AppURL = property.getProperty("base_url");
+			
+			
+			local_IE11browser = System.setProperty(CommonData.Edge_Name, CommonData.Edge_Path);
+			driver = new EdgeDriver();
 
 		}
 		else {
-			System.out.println("test");
+			AppURL = property.getProperty("base_url");
+	
+	System.out.println("platform does not provide");
+		
+			
+			
 		}
 	
 	}

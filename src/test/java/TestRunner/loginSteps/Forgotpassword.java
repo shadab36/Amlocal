@@ -1,5 +1,6 @@
 package TestRunner.loginSteps;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -24,6 +25,7 @@ import webApp.PerformAction;
 	public void navigates_to_website_url() throws InterruptedException {
 		// Maximize Windows
 		driver.get("https://www.slideteam.net");
+		driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
 		Thread.sleep(2000);
 		try {
 			webelement = driver.findElement(SignupObject.close_add);
@@ -34,7 +36,7 @@ import webApp.PerformAction;
 		}
 
 		try {
-			WebElement logout = driver.findElement(By.cssSelector(".signin-link[title='Sign Out']"));
+			WebElement logout = driver.findElement(By.cssSelector("#header>div .header-minicart>a[title='Sign Out']"));
 			if (logout.isEnabled()) {
 				logout.click();
 				Thread.sleep(8000);

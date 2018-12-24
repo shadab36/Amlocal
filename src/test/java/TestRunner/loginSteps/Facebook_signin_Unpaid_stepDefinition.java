@@ -2,12 +2,15 @@ package TestRunner.loginSteps;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import ObjectRepository.FbandGP_Object;
 import ObjectRepository.SignupObject;
@@ -27,7 +30,7 @@ public class Facebook_signin_Unpaid_stepDefinition extends SetupClass {
 	public void navigates_to_website_url() throws InterruptedException {
 		// Maximize Windows
 		driver.get("https://www.slideteam.net");
-		Thread.sleep(2000);
+		 driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
 		try {
 			webelement = driver.findElement(SignupObject.close_add);
 			webelement.click();
@@ -37,7 +40,7 @@ public class Facebook_signin_Unpaid_stepDefinition extends SetupClass {
 		}
 
 		try {
-			WebElement logout = driver.findElement(By.cssSelector(".signin-link[title='Sign Out']"));
+			WebElement logout = driver.findElement(By.cssSelector("#header>div .header-minicart>a[title='Sign Out']"));
 			if (logout.isEnabled()) {
 				logout.click();
 				Thread.sleep(8000);
@@ -53,27 +56,28 @@ public class Facebook_signin_Unpaid_stepDefinition extends SetupClass {
 	public void click_most_download() throws InterruptedException {
 		driver.navigate().refresh();
 		Thread.sleep(2000);
-		webelement = driver.findElement(SignupObject.Most);
-		wait.implictywait(driver);
-		webelement.click();
-		wait.implictywait(driver);
-		Thread.sleep(1000);
+WebDriverWait wait = new WebDriverWait(driver, 30);
+wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.Most));
+js.executeScript("arguments[0].click();", webelement);
+Thread.sleep(2000);
 	}
 
 	@And("^Click on Project Scoping Powerpoint product\\.$")
 	public void select_product() throws InterruptedException {
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.Select_item));
 		webelement = driver.findElement(SignupObject.Select_item);
-		webelement.click();
-		wait.implictywait(driver);
-		Thread.sleep(2000);
+		js.executeScript("arguments[0].click();", webelement);
+		Thread.sleep(3000);
 	}
 
 	@And("^Click on download presentation link\\.$")
 	public void click_on_Download_this_presentation_link() throws InterruptedException {
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.Downloaded));
 		webelement = driver.findElement(SignupObject.Downloaded);
-		wait.implictywait(driver);
-		webelement.click();
-		Thread.sleep(1000);
+		js.executeScript("arguments[0].click();", webelement);
+		Thread.sleep(2000);
 	}
 
 	@And("^Click on fblink\\.$")

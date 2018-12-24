@@ -29,6 +29,7 @@ public class SignUp_Step extends SetupClass {
 		// Maximize Windows
 		driver.get("https://www.slideteam.net");
 		Thread.sleep(2000);
+		 driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 		try {
 			webelement = driver.findElement(SignupObject.close_add);
 			webelement.click();
@@ -38,7 +39,7 @@ public class SignUp_Step extends SetupClass {
 		}
 
 		try {
-			WebElement User_Signin = driver.findElement(By.cssSelector(".signin-link[title='Sign Out']"));
+			WebElement User_Signin = driver.findElement(By.cssSelector("#header>div .header-minicart>a[title='Sign Out']"));
 			if (User_Signin.isEnabled()) {
 				User_Signin.click();
 				Thread.sleep(8000);
@@ -54,24 +55,27 @@ public class SignUp_Step extends SetupClass {
 	public void click_most_download() throws InterruptedException {
 		driver.navigate().refresh();
 		Thread.sleep(2000);
+		WebDriverWait wait = new WebDriverWait(driver, 50);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.Most));
 		webelement = driver.findElement(SignupObject.Most);
 		webelement.click();
-		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 	}
 
 	@Then("^Select a product items\\.$")
 	public void select_product() throws InterruptedException {
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.Select_item));
 		webelement = driver.findElement(SignupObject.Select_item);
-		wait.implictywait(driver);
-		webelement.click();
-		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+		js.executeScript("arguments[0].click();", webelement);
+		Thread.sleep(3000);
 	}
 
 	@Then("^Click on Download this presentation link\\.$")
 	public void click_on_Download_this_presentation_link() throws InterruptedException {
 
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.Downloaded));
 		webelement = driver.findElement(SignupObject.Downloaded);
-		wait.implictywait(driver);
 		webelement.click();
 		Thread.sleep(1000);
 	}

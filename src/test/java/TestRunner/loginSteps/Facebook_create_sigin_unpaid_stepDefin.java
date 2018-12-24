@@ -2,12 +2,14 @@ package TestRunner.loginSteps;
 
 import java.util.List;
 import java.util.Random;
-
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import ObjectRepository.FbandGP_Object;
 import ObjectRepository.SignupObject;
 import TestRunner.SetupClass;
@@ -27,25 +29,17 @@ public class Facebook_create_sigin_unpaid_stepDefin extends SetupClass {
 	public void launching_the_application_URL() throws InterruptedException {
 		// Maximize Windows
 		driver.get("https://www.slideteam.net");
-		Thread.sleep(2000);
-		try {
-			webelement = driver.findElement(SignupObject.close_add);
-			webelement.click();
-			Thread.sleep(2000);
-			log.info("It's opening the website URL");
-		} catch (NoSuchElementException popup) {
-		}
+		Thread.sleep(3000);
 
 		try {
-			WebElement logout = driver.findElement(By.cssSelector(".signin-link[title='Sign Out']"));
+			WebElement logout = driver.findElement(By.cssSelector("#header>div .header-minicart>a[title='Sign Out']"));
+			wait.implictywait(driver);
 			if (logout.isEnabled()) {
 				logout.click();
 				Thread.sleep(8000);
-				driver.navigate().refresh();
-				Thread.sleep(2000);
 			}
 		} catch (NoSuchElementException Ext) {
-
+			Ext.printStackTrace();
 		}
 	}
 
@@ -53,33 +47,36 @@ public class Facebook_create_sigin_unpaid_stepDefin extends SetupClass {
 	public void select_product_list_as_Complete_ppts() throws InterruptedException {
 		driver.navigate().refresh();
 		Thread.sleep(2000);
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.Most));
 		webelement = driver.findElement(SignupObject.Most);
-		wait.implictywait(driver);
 		webelement.click();
-		wait.implictywait(driver);
-		Thread.sleep(1000);
+		Thread.sleep(2000);
+
 	}
 
 	@And("^On the Scoping Powerpoint product\\.$")
 	public void on_the_Scoping_Powerpoint_product() throws InterruptedException {
-	
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.Select_item));
 		webelement = driver.findElement(SignupObject.Select_item);
-		wait.implictywait(driver);
-		webelement.click();
-		wait.implictywait(driver);
-		Thread.sleep(2000);
+		js.executeScript("arguments[0].click();", webelement);
+		Thread.sleep(3000);
 	}
 
 	@And("^Open the download presentation link\\.$")
 	public void open_the_download_presentation_link() throws InterruptedException {
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.Downloaded));
 		webelement = driver.findElement(SignupObject.Downloaded);
-		wait.implictywait(driver);
-		webelement.click();
-		Thread.sleep(1000);
+		js.executeScript("arguments[0].click();", webelement);
+		Thread.sleep(2000);
 	}
 
 	@And("^Click on create as account link\\.$")
 	public void click_on_create_as_account_link() throws InterruptedException {
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(SignupObject.create));
 		webelement = driver.findElement(SignupObject.create);
 		webelement.click();
 		Thread.sleep(1500);
@@ -134,7 +131,7 @@ public class Facebook_create_sigin_unpaid_stepDefin extends SetupClass {
 
 	@Then("^The user is redirected to price page\\.$")
 	public void the_user_is_redirected_to_price_page() throws Throwable {
-
+		Thread.sleep(8000);
 		String actualTitle = driver.getTitle();
 		wait.implictywait(driver);
 		String expectedTitle = "Pricing";
@@ -224,7 +221,7 @@ public class Facebook_create_sigin_unpaid_stepDefin extends SetupClass {
 
 	@Then("^Verify the payment page\\.$")
 	public void verify_the_paypal_payement_page() throws Throwable {
-		Thread.sleep(4000);
+		Thread.sleep(6000);
 		 try {
 			 String actualTitle1 = driver.getTitle();
 				wait.implictywait(driver);

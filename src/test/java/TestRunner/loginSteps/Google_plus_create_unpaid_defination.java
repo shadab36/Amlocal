@@ -35,7 +35,7 @@ public class Google_plus_create_unpaid_defination extends SetupClass {
 		}
 
 		try {
-			WebElement logout = driver.findElement(By.cssSelector(".signin-link[title='Sign Out']"));
+			WebElement logout = driver.findElement(By.cssSelector("#header>div .header-minicart>a[title='Sign Out']"));
 			if (logout.isEnabled()) {
 				logout.click();
 				Thread.sleep(8000);

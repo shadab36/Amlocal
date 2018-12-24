@@ -2,14 +2,11 @@ package TestRunner.loginSteps;
 
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
-
 import ObjectRepository.LoginObject;
 import ObjectRepository.SignupObject;
 import TestRunner.SetupClass;
@@ -27,7 +24,7 @@ public class Login_step_definition extends SetupClass {
 	public void navigates_to_website_url() throws InterruptedException {
 		// Maximize Windows
 		driver.get("https://www.slideteam.net");
-		Thread.sleep(6000);
+		Thread.sleep(2000);
 		try {
 			webelement = driver.findElement(SignupObject.close_add);
 			webelement.click();
@@ -37,7 +34,7 @@ public class Login_step_definition extends SetupClass {
 		}
 		
 		try {	
-			WebElement logout=driver.findElement(By.cssSelector(".signin-link[title='Sign Out']"));
+			WebElement logout=driver.findElement(By.cssSelector("#header>div .header-minicart>a[title='Sign Out']"));
 			if(logout.isEnabled()) {
 				logout.click();
 				Thread.sleep(8000);
@@ -57,15 +54,6 @@ public class Login_step_definition extends SetupClass {
 		webelement.click();
 		wait.implictywait(driver);
 		Thread.sleep(1000);
-		Thread.sleep(1000);
-		try {
-			WebElement recommended=driver.findElement(By.cssSelector(".scd-assistant-cards-close>i"));
-			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			recommended.click();
-	Thread.sleep(1000);
-	} catch (NoSuchElementException recommended) {
-
-	}
 	}
 
 	@Then("^select a product item\\.$")
